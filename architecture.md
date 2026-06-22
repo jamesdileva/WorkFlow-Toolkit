@@ -1,4 +1,4 @@
-#WorkFlow Toolkit
+# WorkFlow Toolkit
 
 architecture.md
 database-schema.md
@@ -8,14 +8,14 @@ report-engine.md
 ui-wireframes.md
 sprint-plan.md
 
-#Vision
+# Vision
 
 WorkFlow Toolkit is a local-first desktop application designed to automate common workplace data workflows.
 
 The application helps users import, clean, analyze, compare, audit, and report on business data without requiring cloud services, subscriptions, or technical expertise.
 
 The platform is designed for:
-`
+```
 Analysts
 Payroll Specialists
 HR Staff
@@ -23,77 +23,77 @@ Administrative Professionals
 Operations Teams
 Small Businesses
 Government Employees
-`
-#Mission
+```
+# Mission
 
 Transform raw workplace data into actionable information with minimal manual effort.
 
 Instead of spending hours manipulating spreadsheets, users should be able to:
-`
+```
 Import
 Analyze
 Validate
 Report
 Export
-`
+```
 in minutes.
 
-#Core Principles
-##Local First
+# Core Principles
+## Local First
 
 All processing occurs on the user's machine.
 
 Benefits:
-`
+```
 No cloud costs
 Faster processing
 Better privacy
 Works offline
-`
+```
 
-##Privacy Focused
+## Privacy Focused
 
 No user data leaves the device.
 
 Ideal for:
-`
+```
 Payroll
 Employee Records
 Financial Data
 Internal Reports
-`
+```
 
-##Modular Architecture
+## Modular Architecture
 
 Every feature is an independent module.
 
 Benefits:
-`
+```
 Easier maintenance
 Easier testing
 Easier future expansion
-`
-##AI Optional
+```
+## AI Optional
 
 The application must function completely without AI.
 
 Future AI features should act as assistants, not dependencies.
 
-##Data-Centric Design
+## Data-Centric Design
 
 Everything revolves around datasets.
 
 The application does not care whether data originated from:
-`
+```
 CSV
 Excel
 PDF
 JSON
-`
+```
 Once imported, all data becomes a common internal structure.
 
-#System Architecture
-`
+# System Architecture
+```
 ┌─────────────────────────────┐
 │ Electron Desktop App        │
 └─────────────┬───────────────┘
@@ -121,7 +121,7 @@ Once imported, all data becomes a common internal structure.
               ▼
 
            SQLite
-`           
+```    
 
 Technology Stack
 Desktop
