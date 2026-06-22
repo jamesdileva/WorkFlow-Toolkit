@@ -8,7 +8,7 @@ report-engine.md
 ui-wireframes.md
 sprint-plan.md
 
-Vision
+##Vision
 
 WorkFlow Toolkit is a local-first desktop application designed to automate common workplace data workflows.
 
@@ -23,7 +23,8 @@ Administrative Professionals
 Operations Teams
 Small Businesses
 Government Employees
-Mission
+
+##Mission
 
 Transform raw workplace data into actionable information with minimal manual effort.
 
@@ -37,29 +38,29 @@ Export
 
 in minutes.
 
-Core Principles
+##Core Principles
 Local First
 
 All processing occurs on the user's machine.
 
-Benefits:
-
+#Benefits:
+`
 No cloud costs
 Faster processing
 Better privacy
 Works offline
 Privacy Focused
-
+`
 No user data leaves the device.
 
-Ideal for:
-
+#Ideal for:
+`
 Payroll
 Employee Records
 Financial Data
 Internal Reports
 Modular Architecture
-
+`
 Every feature is an independent module.
 
 Benefits:
@@ -87,7 +88,6 @@ JSON
 Once imported, all data becomes a common internal structure.
 
 
-System Architecture
 ┌─────────────────────────────┐
 │ Electron Desktop App        │
 └─────────────┬───────────────┘
