@@ -123,8 +123,8 @@ Once imported, all data becomes a common internal structure.
            SQLite
 ```    
 
-Technology Stack
-Desktop
+## Technology Stack
+### Desktop
 
 Electron
 
@@ -132,7 +132,7 @@ Purpose:
 
 Cross-platform desktop application.
 
-Frontend
+### Frontend
 
 React
 
@@ -144,7 +144,7 @@ Purpose:
 
 User Interface
 
-Backend
+### Backend
 
 Python
 
@@ -158,7 +158,7 @@ Automation
 
 Report generation
 
-Database
+### Database
 
 SQLite
 
@@ -175,7 +175,8 @@ Settings
 Templates
 
 
-Internal Data Flow
+## Internal Data Flow
+```
 Raw File
     │
     ▼
@@ -209,13 +210,14 @@ Report Engine
     ▼
 
 PDF / Excel / Dashboard
+```
 
-Central Data Model
+## Central Data Model
 
 This is the most important architectural decision.
 
 Everything becomes a DataSet.
-
+```
 class DataSet:
 
     id: str
@@ -231,118 +233,127 @@ class DataSet:
     dataframe: pd.DataFrame
 
     metadata: dict
+```
 
 Examples:
-
+```
 Payroll.xlsx
-
+```
 becomes
-
+```
 DataSet
-
+```
+```
 Employees.csv
+```
 
 becomes
 
+```
 DataSet
+```
 
+```
 Budget_Report.xlsx
+```
 
 becomes
 
+```
 DataSet
+```
 
 All modules work against DataSet.
 
-Core Modules
+## Core Modules
 
-Module 1
+### Module 1
 
 Import Hub
 
 Responsibilities:
-
+```
 File uploads
 File validation
 Data preview
 Dataset creation
-
-Module 2
+```
+### Module 2
 
 Data Cleaning Engine
 
 Responsibilities:
-
+```
 Duplicate detection
 Missing values
 Standardization
 Data quality scoring
-
-Module 3
+```
+### Module 3
 
 File Compare Engine
 
 Responsibilities:
-
+```
 Dataset comparison
 Variance reporting
 Change tracking
-
-Module 4
+```
+### Module 4
 
 Payroll Toolkit
 
 Responsibilities:
-
+```
 Payroll audits
 Overtime analysis
 Employee validation
-
-Module 5
+```
+### Module 5
 
 Analytics Dashboard
 
 Responsibilities:
-
+```
 KPI generation
 Charts
 Trend analysis
-
-Module 6
+```
+### Module 6
 
 Report Engine
 
 Responsibilities:
-
+```
 PDF reports
 Excel exports
 Executive summaries
-
-Module 7
+```
+### Module 7
 
 Project Workspace
 
 Responsibilities:
-
+```
 Organize imports
 Store reports
 Track history
-
-Module 8
+```
+### Module 8
 
 Template Engine
 
 Responsibilities:
-
+```
 Workflow automation
 Reusable analysis pipelines
 One-click processing
-
-Future Modules
+```
+### Future Modules
 
 Version 2+
 
-Budget Analysis
+### Budget Analysis
 
 Budget vs Actual
 
@@ -350,7 +361,7 @@ Department trends
 
 Forecasting
 
-HR Toolkit
+### HR Toolkit
 
 Headcount analysis
 
@@ -358,7 +369,7 @@ Employee roster audits
 
 Termination reports
 
-Inventory Toolkit
+### Inventory Toolkit
 
 Inventory variance
 
@@ -366,7 +377,7 @@ Stock audits
 
 Purchase analysis
 
-Compliance Toolkit
+### Compliance Toolkit
 
 Exception reporting
 
@@ -374,28 +385,28 @@ Policy validation
 
 Audit readiness
 
-Non-Goals For MVP
+### Non-Goals For MVP
 
 Not building:
-
+```
 Cloud sync
 Multi-user collaboration
 User accounts
 SaaS subscriptions
 Mobile app
 Online databases
-
+```
 These add complexity without increasing MVP value.
 
-Success Criteria
+## Success Criteria
 
 Version 1 is successful if a user can:
-
+```
 Import a spreadsheet
 Clean data
 Compare datasets
 Generate charts
 Produce a PDF report
 Save project history
-
+```
 without requiring Excel formulas, coding, or external services.
