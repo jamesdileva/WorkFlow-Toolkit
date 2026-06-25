@@ -1,0 +1,122 @@
+# Node / React / Electron
+
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Vite
+
+dist/
+.vite/
+
+# Electron Build Output
+
+release/
+releases/
+out/
+build/
+
+# Electron Builder
+
+*.blockmap
+latest.yml
+
+# TypeScript
+
+*.tsbuildinfo
+
+# Python
+
+**pycache**/
+*.py[cod]
+*$py.class
+
+# Python Virtual Environments
+
+venv/
+.venv/
+env/
+
+# Pytest
+
+.pytest_cache/
+
+# Coverage
+
+.coverage
+htmlcov/
+
+# SQLite Databases
+
+*.db
+*.sqlite
+*.sqlite3
+
+# Alembic
+
+alembic.ini.bak
+
+# Local Data
+
+data/database/*
+data/imports/*
+data/reports/*
+data/projects/*
+data/templates/*
+data/logs/*
+
+# Keep Folder Structure
+
+!data/database/.gitkeep
+!data/imports/.gitkeep
+!data/reports/.gitkeep
+!data/projects/.gitkeep
+!data/templates/.gitkeep
+!data/logs/.gitkeep
+
+# IDE
+
+.vscode/
+.idea/
+
+# OS Files
+
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Environment Files
+
+.env
+.env.local
+.env.development
+.env.production
+
+# Temporary Files
+
+*.tmp
+*.temp
+
+# Logs
+
+*.log
+
+# Build Artifacts
+
+*.exe
+*.msi
+
+# Frontend Build
+
+frontend/dist/
+
+# Backend Cache
+
+backend/**pycache**/
+backend/**/*.pyc
+
+# Test Output
+
+coverage/
+test-results/

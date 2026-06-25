@@ -1,0 +1,32 @@
+{
+  "name": "workflow-toolkit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "electron/main.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+    
+  },
+  "scripts": {
+    "electron": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jamesdileva/WorkFlow-Toolkit.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/jamesdileva/WorkFlow-Toolkit/issues"
+  },
+  "homepage": "https://github.com/jamesdileva/WorkFlow-Toolkit#readme",
+  "dependencies": {
+    "concurrently": "^10.0.3",
+    "electron": "^42.5.0",
+    "wait-on": "^9.0.10"
+  }
+}
