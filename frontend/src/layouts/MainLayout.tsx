@@ -1,13 +1,16 @@
 import { Outlet } from "react-router-dom";
+import Sidebar from "../components/Sidebar/Sidebar";
+
+import "./MainLayout.css";
 
 export default function MainLayout() {
   return (
-    <div>
-      <h2>WorkFlow Toolkit</h2>
+    <div className="app-layout">
+      <Sidebar />
 
-      <hr />
-
-      <Outlet />
+      <main className="content">
+        <Outlet />
+      </main>
     </div>
   );
 }

@@ -5,6 +5,7 @@ import MainLayout from "../layouts/MainLayout";
 import Dashboard from "../pages/Dashboard";
 import Projects from "../pages/Projects";
 import ImportHub from "../pages/ImportHub";
+import Settings from "../pages/Settings";
 
 export const router = createBrowserRouter([
   {
@@ -22,7 +23,12 @@ export const router = createBrowserRouter([
       {
         path: "import",
         element: <ImportHub />
+      },
+      {
+        path: "settings",
+        element: <Settings />
       }
+      
     ]
   }
 ]);
