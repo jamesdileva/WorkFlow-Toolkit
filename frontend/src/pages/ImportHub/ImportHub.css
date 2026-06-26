@@ -1,0 +1,51 @@
+.importhub-page {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.importhub-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.importhub-header h1 {
+    margin: 0;
+}
+
+.import-btn {
+    padding: 10px 18px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: var(--accent);
+    color: white;
+
+    cursor: pointer;
+
+    font-weight: 600;
+}
+
+.import-btn:hover {
+    opacity: 0.9;
+}
+
+.dataset-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.empty-state {
+    padding: 48px;
+
+    text-align: center;
+
+    border: 2px dashed var(--border-color);
+
+    border-radius: 10px;
+
+    color: var(--text-secondary);
+}

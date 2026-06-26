@@ -1,0 +1,19 @@
+.dataset-card {
+    background: var(--bg-card);
+
+    border: 1px solid var(--border-color);
+
+    border-radius: 10px;
+
+    padding: 18px;
+}
+
+.dataset-card h3 {
+    margin: 0 0 8px 0;
+}
+
+.dataset-card p {
+    margin: 0 0 8px 0;
+
+    color: var(--text-secondary);
+}
