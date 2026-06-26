@@ -3,7 +3,9 @@ import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
-
+// python -m uvicorn app.main:app --reload in backend
+// npm run dev in frontend/src
+// npm run electron in backend
 function App() {
   const [count, setCount] = useState(0)
 

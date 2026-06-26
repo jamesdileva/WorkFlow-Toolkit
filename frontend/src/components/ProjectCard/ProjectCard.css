@@ -1,0 +1,30 @@
+.project-actions {
+    margin-top: 18px;
+
+    display: flex;
+    justify-content: flex-end;
+}
+
+.delete-btn {
+    border: none;
+
+    background: #d14343;
+
+    color: white;
+
+    padding: 8px 14px;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    opacity: .9;
+}
+
+.project-card.active {
+    border-color: var(--accent);
+
+    box-shadow: 0 0 12px rgba(59,130,246,.25);
+}

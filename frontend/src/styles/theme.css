@@ -1,12 +1,13 @@
 :root {
-  --bg-primary: #1e1e1e;
-  --bg-secondary: #161616;
-  --bg-card: #252526;
 
-  --border-color: #333333;
+    --bg-primary: #1e1e1e;
+    --bg-secondary: #161616;
+    --bg-card: #252526;
 
-  --text-primary: #ffffff;
-  --text-secondary: #bdbdbd;
+    --border-color: #343434;
 
-  --accent: #3b82f6;
+    --text-primary: #ffffff;
+    --text-secondary: #bdbdbd;
+
+    --accent: #3b82f6;
 }
