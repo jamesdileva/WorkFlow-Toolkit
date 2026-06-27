@@ -2,6 +2,16 @@ import { api } from "../api/client";
 
 import type { Dataset } from "../types/Dataset";
 
+export interface DatasetPreview {
+    rows: number;
+
+    columns: number;
+
+    headers: string[];
+
+    preview: string[][];
+}
+
 function getDatasets() {
     return api<Dataset[]>("/api/datasets");
 }
@@ -22,24 +32,36 @@ function getDataset(
     );
 }
 
-function createDataset(
-    dataset: {
-        project_id: number;
-        name: string;
-        file_name: string;
-        file_path: string;
-        row_count: number;
-        column_count: number;
-    }
+async function getDatasetPreview(
+    datasetId: number
 ) {
+    return api<DatasetPreview>(
+        `/api/datasets/${datasetId}/preview`
+    );
+}
+
+
+async function importDataset(
+    projectId: number,
+    file: File
+) {
+    const formData = new FormData();
+
+    formData.append(
+        "project_id",
+        projectId.toString()
+    );
+
+    formData.append(
+        "file",
+        file
+    );
+
     return api<Dataset>(
-        "/api/datasets",
+        "/api/datasets/import",
         {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(dataset),
+            body: formData,
         }
     );
 }
@@ -59,6 +81,7 @@ export const datasetService = {
     getDatasets,
     getDatasetsByProject,
     getDataset,
-    createDataset,
+    getDatasetPreview,
+    importDataset,
     deleteDataset,
 };

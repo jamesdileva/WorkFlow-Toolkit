@@ -8,6 +8,7 @@ import { ProjectProvider } from "./context/ProjectContext";
 import "./styles/variables.css";
 import "./styles/globals.css";
 import "./styles/theme.css";
+import { DatasetProvider } from "./context/DatasetContext";
 
 ReactDOM.createRoot(
     document.getElementById("root")!
@@ -15,12 +16,9 @@ ReactDOM.createRoot(
     <React.StrictMode>
 
         <ProjectProvider>
-
-            <RouterProvider
-                router={router}
-            />
-
+            <DatasetProvider>
+                <RouterProvider router={router} />
+            </DatasetProvider>
         </ProjectProvider>
-
     </React.StrictMode>
 );

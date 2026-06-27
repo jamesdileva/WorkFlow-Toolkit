@@ -9,6 +9,7 @@ import { datasetService } from "../../services/datasetService";
 import DatasetCard from "../../components/DatasetCard/DatasetCard";
 
 import "./ImportHub.css";
+import DatasetExplorer from "../../components/DatasetExplorer/DatasetExplorer";
 
 export default function ImportHub() {
     const { activeProject } = useProject();
@@ -53,28 +54,22 @@ export default function ImportHub() {
             return;
         }
 
-        const text = await file.text();
+        try {
 
-        const lines = text
-            .split(/\r?\n/)
-            .filter((line) => line.trim() !== "");
+            await datasetService.importDataset(
+                activeProject.id,
+                file
+            );
 
-        if (lines.length === 0) {
-            return;
+            await loadDatasets(
+                activeProject.id
+            );
+
+        } catch (error) {
+
+            console.error(error);
+
         }
-
-        const headers = lines[0].split(",");
-
-        await datasetService.createDataset({
-            project_id: activeProject.id,
-            name: file.name.replace(".csv", ""),
-            file_name: file.name,
-            file_path: file.name,
-            row_count: Math.max(lines.length - 1, 0),
-            column_count: headers.length,
-        });
-
-        await loadDatasets(activeProject.id);
 
         event.target.value = "";
     }
@@ -126,6 +121,8 @@ export default function ImportHub() {
                 ))}
 
             </div>
+
+            <DatasetExplorer />
 
         </div>
     );
