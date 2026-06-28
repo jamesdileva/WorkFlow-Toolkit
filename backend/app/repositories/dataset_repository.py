@@ -58,7 +58,22 @@ class DatasetRepository:
         db.refresh(dataset)
 
         return dataset
+        
+    @staticmethod
+    def delete_by_id(db, dataset_id: int):
 
+        dataset = db.query(Dataset).filter(
+            Dataset.id == dataset_id
+        ).first()
+
+        if not dataset:
+            return None
+
+        db.delete(dataset)
+        db.commit()
+
+        return True
+        
     @staticmethod
     def delete(
         db: Session,

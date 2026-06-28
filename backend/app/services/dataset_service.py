@@ -8,6 +8,10 @@ from app.utils.dataset_importer import (
     DatasetImporter,
 )
 
+import pandas as pd
+
+from pathlib import Path
+
 class DatasetService:
 
     @staticmethod
@@ -81,3 +85,45 @@ class DatasetService:
             db,
             dataset_id,
         )
+
+    @staticmethod
+    def get_dataframe(
+        db: Session,
+        dataset_id: int,
+    ):
+        dataset = DatasetRepository.get_by_id(
+            db,
+            dataset_id,
+        )
+
+        if not dataset:
+            return None
+
+        path = Path(dataset.file_path)
+
+        return pd.read_csv(path)
+    
+   
+    @staticmethod
+    def get_dataset_summary(
+        db: Session,
+        dataset_id: int,
+    ):
+        dataframe = DatasetService.get_dataframe(
+            db,
+            dataset_id,
+        )
+
+        if dataframe is None:
+            return None
+
+        return {
+            "rows": len(dataframe),
+            "columns": len(dataframe.columns),
+            "missing_values": int(
+                dataframe.isna().sum().sum()
+            ),
+            "duplicate_rows": int(
+                dataframe.duplicated().sum()
+            ),
+        }    

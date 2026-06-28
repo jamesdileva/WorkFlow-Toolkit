@@ -6,12 +6,13 @@ import "./DatasetCard.css";
 
 interface Props {
     dataset: Dataset;
+    onDelete: (datasetId: number) => void;
 }
 
 export default function DatasetCard({
     dataset,
+    onDelete,
 }: Props) {
-
     const {
         activeDataset,
         setActiveDataset,
@@ -37,6 +38,17 @@ export default function DatasetCard({
                 {dataset.row_count} rows •{" "}
                 {dataset.column_count} columns
             </small>
+
+            <button
+                type="button"
+                onClick={(event) => {
+                    event.stopPropagation();
+                    onDelete(dataset.id);
+                }}
+            >
+                Delete
+            </button>
+
         </div>
     );
 }

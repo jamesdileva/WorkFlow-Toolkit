@@ -7,39 +7,61 @@ import type { Dataset } from "../../types/Dataset";
 import { datasetService } from "../../services/datasetService";
 
 import DatasetCard from "../../components/DatasetCard/DatasetCard";
-
+import { useDataset } from "../../context/DatasetContext";
 import "./ImportHub.css";
 import DatasetExplorer from "../../components/DatasetExplorer/DatasetExplorer";
 
 export default function ImportHub() {
     const { activeProject } = useProject();
-
+    const {
+        activeDataset,
+        setActiveDataset,
+    } = useDataset();
     const [datasets, setDatasets] = useState<Dataset[]>([]);
+    const [leftDataset, setLeftDataset] =
+        useState<Dataset | null>(null);
 
+    const [rightDataset, setRightDataset] =
+        useState<Dataset | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    useEffect(() => {
-        if (!activeProject) {
-            setDatasets([]);
-            return;
-        }
+    const loadDatasets = async () => {
+        if (!activeProject) return;
 
-        loadDatasets(activeProject.id);
-
-    }, [activeProject]);
-
-    async function loadDatasets(projectId: number) {
-    try {
         const data =
             await datasetService.getDatasetsByProject(
-                projectId
+                activeProject.id
             );
 
         setDatasets(data);
-    } catch (error) {
-        console.error(error);
-    }
-}
+    };
+
+    async function handleDeleteDataset(
+            datasetId: number
+        ) {
+            try {
+
+                await datasetService.deleteDataset(
+                    datasetId
+                );
+
+                if (activeDataset?.id === datasetId) {
+                    setActiveDataset(null);
+                }
+
+                await loadDatasets();
+
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+    useEffect(() => {
+
+        loadDatasets();
+
+    }, [activeProject]);
+
 
     function handleImportClick() {
         fileInputRef.current?.click();
@@ -61,9 +83,7 @@ export default function ImportHub() {
                 file
             );
 
-            await loadDatasets(
-                activeProject.id
-            );
+        await loadDatasets();
 
         } catch (error) {
 
@@ -73,6 +93,12 @@ export default function ImportHub() {
 
         event.target.value = "";
     }
+
+
+void leftDataset;
+void rightDataset;
+void setLeftDataset;
+void setRightDataset;
 
     return (
         <div className="importhub-page">
@@ -117,12 +143,24 @@ export default function ImportHub() {
                     <DatasetCard
                         key={dataset.id}
                         dataset={dataset}
+                        onDelete={handleDeleteDataset}
                     />
                 ))}
 
             </div>
+            <div className="comparison-placeholder">
 
-            <DatasetExplorer />
+                <h3>Dataset Comparison</h3>
+
+                <p>
+                    Comparison engine coming in Sprint 7.
+                </p>
+
+            </div>
+
+            <DatasetExplorer
+                loadDatasets={loadDatasets}
+            />
 
         </div>
     );

@@ -2,6 +2,13 @@ import { api } from "../api/client";
 
 import type { Dataset } from "../types/Dataset";
 
+export interface DatasetSummary {
+    rows: number;
+    columns: number;
+    missing_values: number;
+    duplicate_rows: number;
+}
+
 export interface DatasetPreview {
     rows: number;
 
@@ -10,6 +17,14 @@ export interface DatasetPreview {
     headers: string[];
 
     preview: string[][];
+}
+
+async function getDatasetSummary(
+    datasetId: number
+) {
+    return api<DatasetSummary>(
+        `/api/datasets/${datasetId}/summary`
+    );
 }
 
 function getDatasets() {
@@ -66,6 +81,17 @@ async function importDataset(
     );
 }
 
+async function removeDuplicates(
+    datasetId: number
+) {
+    return api<Dataset>(
+        `/api/transformations/remove-duplicates/${datasetId}`,
+        {
+            method: "POST",
+        }
+    );
+}
+
 function deleteDataset(
     id: number
 ) {
@@ -83,5 +109,7 @@ export const datasetService = {
     getDataset,
     getDatasetPreview,
     importDataset,
+    removeDuplicates,
     deleteDataset,
+    getDatasetSummary,
 };

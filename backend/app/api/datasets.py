@@ -19,6 +19,9 @@ from fastapi import UploadFile
 from app.schemas.dataset_import_schema import (
     DatasetImportResponse,
 )
+
+from app.repositories.dataset_repository import DatasetRepository
+
 router = APIRouter(
     prefix="/api/datasets",
     tags=["Datasets"],
@@ -48,6 +51,25 @@ def get_project_datasets(
         project_id,
     )
 
+@router.delete("/{dataset_id}")
+def delete_dataset(
+    dataset_id: int,
+    db: Session = Depends(get_db),
+):
+    result = DatasetRepository.delete_by_id(
+        db,
+        dataset_id,
+    )
+
+    if not result:
+        raise HTTPException(
+            status_code=404,
+            detail="Dataset not found",
+        )
+
+    return {
+        "message": "Dataset deleted"
+    }
 
 @router.get(
     "/{dataset_id}",
@@ -93,6 +115,25 @@ def preview_dataset(
     return DatasetAnalyzer.analyze(
         dataset.file_path
     )
+
+@router.get("/{dataset_id}/summary")
+def get_dataset_summary(
+        dataset_id: int,
+        db: Session = Depends(get_db),
+    ):
+        summary = DatasetService.get_dataset_summary(
+            db,
+            dataset_id,
+        )
+
+        if summary is None:
+            raise HTTPException(
+                status_code=404,
+                detail="Dataset not found",
+            )
+
+        return summary
+
 
 """
 @router.post(
