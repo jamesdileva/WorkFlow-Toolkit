@@ -9,16 +9,30 @@ import "./styles/variables.css";
 import "./styles/globals.css";
 import "./styles/theme.css";
 import { DatasetProvider } from "./context/DatasetContext";
+import {
+    ComparisonProvider,
+} from "./context/ComparisonContext";
 
 ReactDOM.createRoot(
     document.getElementById("root")!
 ).render(
-    <React.StrictMode>
+<React.StrictMode>
 
-        <ProjectProvider>
-            <DatasetProvider>
-                <RouterProvider router={router} />
-            </DatasetProvider>
-        </ProjectProvider>
-    </React.StrictMode>
+    <ProjectProvider>
+
+        <DatasetProvider>
+
+            <ComparisonProvider>
+
+                <RouterProvider
+                    router={router}
+                />
+
+            </ComparisonProvider>
+
+        </DatasetProvider>
+
+    </ProjectProvider>
+
+</React.StrictMode>
 );

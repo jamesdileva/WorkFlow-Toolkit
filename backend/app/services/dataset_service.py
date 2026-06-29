@@ -127,3 +127,65 @@ class DatasetService:
                 dataframe.duplicated().sum()
             ),
         }    
+        
+    @staticmethod
+    def compare_datasets(
+        db: Session,
+        left_dataset_id: int,
+        right_dataset_id: int,
+    ):
+        left = DatasetService.get_dataframe(
+            db,
+            left_dataset_id,
+        )
+
+        right = DatasetService.get_dataframe(
+            db,
+            right_dataset_id,
+        )
+
+        if left is None or right is None:
+            return None
+
+        left_rows = len(left)
+        right_rows = len(right)
+
+        left_columns = len(left.columns)
+        right_columns = len(right.columns)
+
+        left_missing = int(
+            left.isna().sum().sum()
+        )
+
+        right_missing = int(
+            right.isna().sum().sum()
+        )
+
+        left_duplicates = int(
+            left.duplicated().sum()
+        )
+
+        right_duplicates = int(
+            right.duplicated().sum()
+        )
+
+        return {
+            "left_rows": left_rows,
+            "right_rows": right_rows,
+            "row_difference": right_rows - left_rows,
+
+            "left_columns": left_columns,
+            "right_columns": right_columns,
+            "column_difference":
+                right_columns - left_columns,
+
+            "left_missing": left_missing,
+            "right_missing": right_missing,
+            "missing_difference":
+                right_missing - left_missing,
+
+            "left_duplicates": left_duplicates,
+            "right_duplicates": right_duplicates,
+            "duplicate_difference":
+                right_duplicates - left_duplicates,
+        }

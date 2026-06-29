@@ -71,6 +71,27 @@ def delete_dataset(
         "message": "Dataset deleted"
     }
 
+
+@router.get("/compare")
+def compare_datasets(
+    left_dataset_id: int,
+    right_dataset_id: int,
+    db: Session = Depends(get_db),
+):
+    comparison = DatasetService.compare_datasets(
+        db,
+        left_dataset_id,
+        right_dataset_id,
+    )
+
+    if comparison is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Dataset not found",
+        )
+
+    return comparison
+
 @router.get(
     "/{dataset_id}",
     response_model=DatasetResponse,
@@ -187,3 +208,4 @@ def delete_dataset(
     return {
         "message": "Dataset deleted successfully"
     }
+
