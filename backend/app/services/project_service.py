@@ -44,3 +44,12 @@ class ProjectService:
             db,
             project_id
         )
+
+
+    @staticmethod
+    def count(
+        db: Session,
+    ):
+        return ProjectRepository.count(
+            db,
+        )

@@ -19,6 +19,22 @@ export interface DatasetPreview {
     preview: string[][];
 }
 
+export async function getDatasetCount() {
+    return api<{ count: number }>(
+        "/api/datasets/count"
+    );
+}
+
+export interface TotalRowsResponse {
+    rows: number;
+}
+
+async function getTotalRows() {
+    return api<TotalRowsResponse>(
+        "/api/datasets/rows"
+    );
+}
+
 async function getDatasetSummary(
     datasetId: number
 ) {
@@ -112,4 +128,6 @@ export const datasetService = {
     removeDuplicates,
     deleteDataset,
     getDatasetSummary,
+    getDatasetCount,
+    getTotalRows,
 };

@@ -51,25 +51,46 @@ def get_project_datasets(
         project_id,
     )
 
+@router.get("/count")
+def get_dataset_count(
+    db: Session = Depends(get_db),
+):
+    return {
+        "count": DatasetService.count(
+            db,
+        )
+    }    
+
+@router.get("/rows")
+def get_total_rows(
+    db: Session = Depends(get_db),
+):
+    return {
+        "rows": DatasetService.total_rows(
+            db,
+        )
+    }
+
 @router.delete("/{dataset_id}")
 def delete_dataset(
     dataset_id: int,
     db: Session = Depends(get_db),
 ):
-    result = DatasetRepository.delete_by_id(
+    dataset = DatasetService.delete(
         db,
         dataset_id,
     )
 
-    if not result:
+    if dataset is None:
         raise HTTPException(
             status_code=404,
             detail="Dataset not found",
         )
 
     return {
-        "message": "Dataset deleted"
+        "message": "Dataset deleted successfully"
     }
+
 
 
 @router.get("/compare")
@@ -185,27 +206,4 @@ def import_dataset(
         project_id,
         file,
     )    
-
-
-@router.delete(
-    "/{dataset_id}",
-)
-def delete_dataset(
-    dataset_id: int,
-    db: Session = Depends(get_db),
-):
-    dataset = DatasetService.delete(
-        db,
-        dataset_id,
-    )
-
-    if dataset is None:
-        raise HTTPException(
-            status_code=404,
-            detail="Dataset not found",
-        )
-
-    return {
-        "message": "Dataset deleted successfully"
-    }
 

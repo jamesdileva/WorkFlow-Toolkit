@@ -189,3 +189,20 @@ class DatasetService:
             "duplicate_difference":
                 right_duplicates - left_duplicates,
         }
+
+    @staticmethod
+    def count(
+        db: Session,
+    ):
+        return DatasetRepository.count(
+            db,
+        )
+
+
+    @staticmethod
+    def total_rows(
+        db: Session,
+    ):
+        return DatasetRepository.total_rows(
+            db,
+        )

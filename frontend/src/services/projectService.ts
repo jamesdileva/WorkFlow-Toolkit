@@ -9,6 +9,12 @@ export function getProject(id: number) {
     return api<Project>(`/api/projects/${id}`);
 }
 
+export async function getProjectCount() {
+    return api<{ count: number }>(
+        "/api/projects/count"
+    );
+}
+
 export function createProject(
     name: string,
     description: string
@@ -21,6 +27,7 @@ export function createProject(
         body: JSON.stringify({
             name,
             description,
+            
         }),
     });
 }

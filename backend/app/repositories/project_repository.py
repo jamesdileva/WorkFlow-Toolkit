@@ -59,3 +59,12 @@ class ProjectRepository:
         db.commit()
 
         return project
+
+    @staticmethod
+    def count(
+        db: Session,
+    ):
+        return (
+            db.query(Project)
+            .count()
+        )

@@ -32,6 +32,15 @@ def get_projects(
 ):
     return ProjectService.get_projects(db)
 
+@router.get("/count")
+def get_project_count(
+    db: Session = Depends(get_db),
+):
+    return {
+        "count": ProjectService.count(
+            db,
+        )
+    }
 
 @router.get(
     "/{project_id}",
@@ -87,3 +96,4 @@ def delete_project(
     return {
         "message": "Project deleted"
     }
+

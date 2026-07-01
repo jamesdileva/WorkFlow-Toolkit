@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-
+from sqlalchemy import func
 from app.models.dataset import Dataset
 from app.schemas.dataset_schema import DatasetCreate
 
@@ -92,3 +92,41 @@ class DatasetRepository:
         db.commit()
 
         return dataset
+
+
+    @staticmethod
+    def count(
+        db: Session,
+    ):
+        return (
+            db.query(Dataset)
+            .count()
+        )    
+
+
+    @staticmethod
+    def total_rows(
+        db: Session,
+    ):
+        result = (
+            db.query(
+                func.sum(
+                    Dataset.row_count
+                )
+            )
+            .scalar()
+        )
+
+        return result or 0
+
+    @staticmethod
+    def transformation_count(
+        db: Session,
+    ):
+        return (
+            db.query(Dataset)
+            .filter(
+                Dataset.name.like("%(Transformed)%")
+            )
+            .count()
+        )
