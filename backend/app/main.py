@@ -11,6 +11,14 @@ from app.api.transformations import (
     router as transformations_router,
 )
 
+from app.models.transformation_history import (
+    TransformationHistory,
+)
+
+from app.api.transformation_history import (
+    router as transformation_history_router,
+)
+
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
@@ -33,6 +41,10 @@ app.include_router(
 app.include_router(datasets_router)
 app.include_router(
     transformations_router
+)
+
+app.include_router(
+    transformation_history_router
 )
 
 @app.get("/")

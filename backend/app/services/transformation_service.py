@@ -13,7 +13,9 @@ from app.transformations.transformation_engine import (
 from app.transformations.operations.remove_duplicates import (
     remove_duplicates,
 )
-
+from app.services.transformation_history_service import (
+    TransformationHistoryService,
+)
 from app.utils.project_storage import ProjectStorage
 
 
@@ -63,7 +65,19 @@ class TransformationService:
             column_count=metadata["columns"],
         )
 
-        return DatasetRepository.create(
+        created_dataset = DatasetRepository.create(
             db,
             new_dataset,
         )
+
+        TransformationHistoryService.create(
+            db,
+            dataset_id=created_dataset.id,
+            transformation="Remove Duplicates",
+            details=(
+                f"Created from dataset "
+                f"{dataset.id}"
+            ),
+        )
+
+        return created_dataset

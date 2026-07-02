@@ -8,6 +8,10 @@ import {
     datasetService,
 } from "../../services/datasetService";
 
+import {
+    getRecentHistory,
+    type TransformationHistory,
+} from "../../services/transformationHistoryService";
 
 
 import "./Dashboard.css";
@@ -22,6 +26,10 @@ export default function Dashboard() {
 
     const [totalRows, setTotalRows] =
     useState(0);
+
+    const [history, setHistory] = useState<
+        TransformationHistory[]
+    >([]);
 
   useEffect(() => {
 
@@ -56,6 +64,10 @@ export default function Dashboard() {
                 );
 
             })
+            .catch(console.error);
+
+        getRecentHistory()
+            .then(setHistory)
             .catch(console.error);
 
   }, []);
@@ -97,6 +109,28 @@ export default function Dashboard() {
 
             </div>
 
+            <section>
+                <h2>Recent Activity</h2>
+
+                <ul>
+                    {history.map(item => (
+                        <li key={item.id}>
+                            <strong>{item.transformation}</strong>
+
+                            <br />
+
+                            <small>{item.details}</small>
+
+                            <br />
+
+                            <small>
+                                {new Date(item.created_at).toLocaleString()}
+                            </small>
+                        </li>
+                    ))}
+                </ul>
+            </section>
+            
         </div>
 
       </div>

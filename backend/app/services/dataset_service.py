@@ -99,9 +99,20 @@ class DatasetService:
         if not dataset:
             return None
 
+        print("--------------------------------")
+        print("Dataset ID:", dataset.id)
+        print("Dataset Name:", dataset.name)
+        print("Path:", dataset.file_path)
+
         path = Path(dataset.file_path)
 
-        return pd.read_csv(path)
+        print("Absolute path:", path.resolve())
+
+        df = pd.read_csv(path)
+
+        print("Rows Loaded:", len(df))
+
+        return df
     
    
     @staticmethod
