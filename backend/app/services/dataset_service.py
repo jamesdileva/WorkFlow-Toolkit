@@ -217,3 +217,35 @@ class DatasetService:
         return DatasetRepository.total_rows(
             db,
         )
+
+    @staticmethod
+    def get_health_score(
+        db: Session,
+        dataset_id: int,
+    ):
+        summary = DatasetService.get_dataset_summary(
+            db,
+            dataset_id,
+        )
+
+        if summary is None:
+            return None
+
+        score = 100
+
+        score -= min(
+            summary["missing_values"],
+            40,
+        )
+
+        score -= min(
+            summary["duplicate_rows"] * 5,
+            40,
+        )
+
+        score = max(score, 0)
+
+        return {
+            "health_score": score,
+            "summary": summary,
+        }

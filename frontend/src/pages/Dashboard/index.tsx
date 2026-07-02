@@ -31,6 +31,21 @@ export default function Dashboard() {
         TransformationHistory[]
     >([]);
 
+    const [healthScore, setHealthScore] =
+        useState<number | null>(null);
+
+    const [datasetsNeedingAttention,
+        setDatasetsNeedingAttention] =
+        useState(0);
+
+    const [healthyDatasets,
+    setHealthyDatasets] =
+    useState(0);
+
+    const [warningDatasets,
+        setWarningDatasets] =
+        useState(0);    
+
   useEffect(() => {
 
       getProjectCount()
@@ -70,7 +85,101 @@ export default function Dashboard() {
             .then(setHistory)
             .catch(console.error);
 
-  }, []);
+
+        datasetService
+            .getDatasets()
+            .then(async datasets => {
+
+                if (datasets.length === 0) {
+                    return null;
+                }
+
+                const scores = await Promise.all(
+                    datasets.map(dataset =>
+                        datasetService.getDatasetHealth(
+                            dataset.id
+                        )
+                    )
+                );
+
+                const healthy =
+                    scores.filter(
+                        score => score.health_score >= 90
+                    ).length;
+
+                const warning =
+                    scores.filter(
+                        score =>
+                            score.health_score >= 75 &&
+                            score.health_score < 90
+                    ).length;
+
+                const attention =
+                    scores.filter(
+                        score => score.health_score < 75
+                    ).length;
+
+                setHealthyDatasets(
+                    healthy
+                );
+
+                setWarningDatasets(
+                    warning
+                );
+
+                setDatasetsNeedingAttention(
+                    attention
+                );
+
+                const average =
+                    Math.round(
+                        scores.reduce(
+                            (sum, score) =>
+                                sum + score.health_score,
+                            0,
+                        ) / scores.length
+                    );
+
+                return average;
+
+            })
+            .then(average => {
+
+                if (average === null) {
+                    return;
+                }
+
+                setHealthScore(
+                    average
+                );
+
+            })
+            .catch(console.error);
+
+        }, []);
+
+
+
+
+        function getHealthStatus(
+            score: number | null,
+        ) {
+
+            if (score === null) {
+                return "--";
+            }
+
+            if (score >= 90) {
+                return "🟢 Healthy";
+            }
+
+            if (score >= 75) {
+                return "🟡 Warning";
+            }
+
+            return "🔴 Needs Attention";
+
+        }
 
   return (
       <div className="dashboard-page">
@@ -130,7 +239,56 @@ export default function Dashboard() {
                     ))}
                 </ul>
             </section>
-            
+
+            <section>
+
+                <h2>Dataset Health</h2>
+
+               <p>
+                    Average Dataset Health:
+                    {" "}
+                    {healthScore ?? "--"}
+                </p>
+
+                <p>
+                    Status:
+                    {" "}
+                    {getHealthStatus(
+                        healthScore
+                    )}
+                </p>
+
+
+                <p>
+
+                    Datasets Needing Attention:
+
+                    {" "}
+
+                    {datasetsNeedingAttention}
+
+                </p>
+
+
+                <p>
+                    Healthy Datasets: {healthyDatasets}
+                </p>
+
+                <p>
+                    Warning Datasets: {warningDatasets}
+                </p>
+
+                <p>
+                    Datasets Needing Attention:
+                    {" "}
+                    {datasetsNeedingAttention}
+                </p>
+                
+
+            </section>
+
+
+
         </div>
 
       </div>

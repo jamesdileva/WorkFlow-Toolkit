@@ -19,6 +19,16 @@ export interface DatasetPreview {
     preview: string[][];
 }
 
+export interface DatasetHealth {
+    health_score: number;
+    summary: {
+        rows: number;
+        columns: number;
+        missing_values: number;
+        duplicate_rows: number;
+    };
+}
+
 export async function getDatasetCount() {
     return api<{ count: number }>(
         "/api/datasets/count"
@@ -119,6 +129,14 @@ function deleteDataset(
     );
 }
 
+function getDatasetHealth(
+    datasetId: number,
+) {
+    return api<DatasetHealth>(
+        `/api/datasets/${datasetId}/health`
+    );
+}
+
 export const datasetService = {
     getDatasets,
     getDatasetsByProject,
@@ -130,4 +148,5 @@ export const datasetService = {
     getDatasetSummary,
     getDatasetCount,
     getTotalRows,
+    getDatasetHealth,
 };

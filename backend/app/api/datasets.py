@@ -91,7 +91,23 @@ def delete_dataset(
         "message": "Dataset deleted successfully"
     }
 
+@router.get("/{dataset_id}/health")
+def get_dataset_health(
+    dataset_id: int,
+    db: Session = Depends(get_db),
+):
+    health = DatasetService.get_health_score(
+        db,
+        dataset_id,
+    )
 
+    if health is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Dataset not found",
+        )
+
+    return health
 
 @router.get("/compare")
 def compare_datasets(
